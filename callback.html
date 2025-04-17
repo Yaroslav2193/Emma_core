@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Авторизация прошла</title>
+</head>
+<body>
+  <h2>Авторизация успешна</h2>
+  <p>Теперь ты можешь закрыть эту вкладку и вернуться в Эмму.</p>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    if (code) {
+      localStorage.setItem("oauth_code", code);
+      // Можно отправить код в родительское окно или через fetch
+      window.close();
+    }
+  </script>
+</body>
+</html>
