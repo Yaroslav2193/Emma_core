@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Эмма — авторизация через Яндекс</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    #emma-chat {
+      display: none;
+      margin-top: 40px;
+    }
+    input, button {
+      font-size: 18px;
+      padding: 10px;
+      margin: 10px;
+    }
+    .message {
+      margin: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Эмма</h1>
+  <p id="greeting">Войдите через Яндекс</p>
+  <a id="login-link" href="#">Войти через Яндекс</a>
+
+  <div id="emma-chat">
+    <div class="message" id="emma-response">Привет, я Эмма. О чём поговорим?</div>
+    <input type="text" id="user-input" placeholder="Напиши что-нибудь..." />
+    <button onclick="sendMessage()">Отправить</button>
+  </div>
+
+  <script>
+    const CLIENT_ID = "твой_CLIENT_ID"; // ВСТАВЬ свой client_id из OAuth
+    const REDIRECT_URI = window.location.origin + window.location.pathname;
+
+    const loginLink = document.getElementById("login-link");
+    loginLink.href = `https://oauth.yandex.ru/authorize?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
+
+    // Проверка, есть ли токен в адресе
+    const hash = window.location.hash;
+    if (hash.includes("access_token")) {
+      const params = new URLSearchParams(hash.substring(1));
+      const token = params.get("access_token");
+
+      // Получим имя пользователя
+      fetch("https://login.yandex.ru/info?format=json", {
+        headers: {
+          Authorization: `OAuth ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("greeting").textContent = `Привет, ${data.display_name}!`;
+        loginLink.style.display = "none";
+        document.getElementById("emma-chat").style.display = "block";
+      });
+    }
+
+    // Простейший интеллект Эммы (можно позже подключить OpenAI или ЯндексGPT)
+    function sendMessage() {
+      const input = document.getElementById("user-input");
+      const message = input.value.trim();
+      if (!message) return;
+
+      let response = "Интересно... расскажи подробнее!";
+      if (message.toLowerCase().includes("привет")) {
+        response = "Привет-привет! Как настроение?";
+      } else if (message.toLowerCase().includes("как дела")) {
+        response = "Всё отлично! А у тебя?";
+      }
+
+      document.getElementById("emma-response").textContent = "Эмма: " + response;
+      input.value = "";
+    }
+  </script>
+</body>
+</html>
