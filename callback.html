@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Авторизация прошла</title>
-</head>
-<body>
-  <h2>Авторизация успешна</h2>
-  <p>Теперь ты можешь закрыть эту вкладку и вернуться в Эмму.</p>
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-    if (code) {
-      localStorage.setItem("oauth_code", code);
-      // Можно отправить код в родительское окно или через fetch
-      window.close();
-    }
-  </script>
-</body>
+  <head>
+    <title>Redirecting...</title>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      if (code) {
+        localStorage.setItem('yandex_code', code);
+      }
+      // закрываем окно или перенаправляем куда нужно
+      window.location.href = '/Emma_core/'; // или .close()
+    </script>
+  </head>
+  <body>
+    <p>Подождите... перенаправляем вас в Эмму.</p>
+  </body>
 </html>
+
