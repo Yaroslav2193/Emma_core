@@ -1,20 +1,36 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Обработка кода авторизации</title>
+  <meta charset="UTF-8">
+  <title>Авторизация Яндекс</title>
 </head>
 <body>
-    <h2>Авторизация прошла!</h2>
-    <p>Код авторизации: <span id="code">загрузка...</span></p>
+  <h1>Загрузка...</h1>
+  <script>
+    // Получаем code из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-        document.getElementById('code').textContent = code || 'не найден';
-        console.log('Код авторизации:', code);
-    </script>
+    if (code) {
+      // Отправка code на локальный сервер (ты будешь запускать Python-скрипт, например)
+      fetch('http://localhost:5000/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: code })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.body.innerHTML = `<h2>Привет, ${data.name || 'пользователь'}!</h2>`;
+      })
+      .catch(error => {
+        document.body.innerHTML = `<h2>Ошибка: ${error}</h2>`;
+      });
+    } else {
+      document.body.innerHTML = '<h2>Код не найден</h2>';
+    }
+  </script>
 </body>
 </html>
+
 
 
