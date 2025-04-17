@@ -2,15 +2,38 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Эмма — Вход</title>
+  <title>Добро пожаловать в Эмму</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f0f0;
+    }
+    .login-btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      background: #ffcc00;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <h1>Добро пожаловать!</h1>
-  <p>Нажми, чтобы войти через Яндекс ID:</p>
-  <a href="https://oauth.yandex.ru/authorize?response_type=code&client_id=96f37c1e41fd4a92be80067c1d921586&redirect_uri=https://oauth.yandex.ru/verification_code">
-    <img src="https://yastatic.net/s3/passport/static/social-id-button/yandex/white.svg" alt="Войти через Яндекс" style="width: 200px;"/>
-  </a>
+  <button class="login-btn" onclick="login()">Войти через Яндекс</button>
+
+  <script>
+    function login() {
+      const clientId = "твой_client_id"; // вставь свой client_id от Яндекса
+      const redirectUri = "https://oauth.yandex.ru/verification_code";
+      const authUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}`;
+      window.open(authUrl, "_blank");
+    }
+  </script>
 </body>
 </html>
+
 
