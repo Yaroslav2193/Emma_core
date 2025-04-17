@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Redirecting...</title>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Обработка кода авторизации</title>
+</head>
+<body>
+    <h2>Авторизация прошла!</h2>
+    <p>Код авторизации: <span id="code">загрузка...</span></p>
+
     <script>
-      const params = new URLSearchParams(window.location.search);
-      const code = params.get('code');
-      if (code) {
-        localStorage.setItem('yandex_code', code);
-      }
-      // закрываем окно или перенаправляем куда нужно
-      window.location.href = '/Emma_core/'; // или .close()
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        document.getElementById('code').textContent = code || 'не найден';
+        console.log('Код авторизации:', code);
     </script>
-  </head>
-  <body>
-    <p>Подождите... перенаправляем вас в Эмму.</p>
-  </body>
+</body>
 </html>
+
 
