@@ -1,39 +1,37 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Добро пожаловать в Эмму</title>
   <style>
     body {
       font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #f0f0f0;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #f0f0f0;
     }
     .login-btn {
+      background-color: #ffdb4d;
       padding: 15px 30px;
-      font-size: 18px;
-      background: #ffcc00;
+      font-size: 16px;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .login-btn:hover {
+      background-color: #ffe680;
     }
   </style>
 </head>
 <body>
-  <button class="login-btn" onclick="login()">Войти через Яндекс</button>
-
-  <script>
-    function login() {
-      const clientId = "96f37c1e41fd4a92be80067c1d921586"; // вставь свой client_id от Яндекса
-      const redirectUri = "https://yaroslav2193.github.io/Emma_core/callback.html
-";
-      const authUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientId}`;
-      window.open(authUrl, "_blank");
-    }
-  </script>
+  <h1>Добро пожаловать в Эмму</h1>
+  <a class="login-btn" href="https://oauth.yandex.ru/authorize?response_type=code&client_id=96f37c1e41fd4a92be80067c1d921586&redirect_uri=https%3A%2F%2Fyaroslav2193.github.io%2FEmma_core%2Fcallback.html">
+    Войти через Яндекс
+  </a>
 </body>
 </html>
 
